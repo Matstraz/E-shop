@@ -7,6 +7,9 @@ const icons = {
     heart: <FontAwesomeIcon icon={faHeart} className="h-8" />,
     cart: <FontAwesomeIcon icon={faBookmark} className="h-8" />,
   },
+  bodyContent: {
+    heart: <FontAwesomeIcon icon={faHeart} className="h-5" />,
+  },
 };
 
 export default icons;
