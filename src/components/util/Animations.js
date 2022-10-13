@@ -1,15 +1,12 @@
 import { StyleSheet } from "aphrodite";
-import { bounce, fadeInRight } from "react-animations";
+import { pulse } from "react-animations";
 
-const styles = StyleSheet.create({
-  bounce: {
-    animationName: bounce,
-    animationDuration: "1s",
-  },
-  fadeInRight: {
-    animationName: fadeInRight,
-    animationDuration: "1s",
+const animation = StyleSheet.create({
+  pulse: {
+    animationName: pulse,
+    animationDuration: "0.4s",
+    animationIterationCount: 3,
   },
 });
 
-export default styles;
+export default animation;

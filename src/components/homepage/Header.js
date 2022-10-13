@@ -1,6 +1,6 @@
 import icons from "../util/Icons";
 
-export default function Header({ shoppingCart }) {
+export default function Header({ shoppingCart, wished }) {
   return (
     <header>
       <nav className="bg-slate-200">
@@ -14,7 +14,7 @@ export default function Header({ shoppingCart }) {
         </ul>
       </nav>
       <div className="flex justify-end gap-x-7 w-11/12 m-auto py-3">
-        <div>{icons.header.heart}</div>
+        <div>{wished ? icons.header.redHeart : icons.header.heart}</div>
         <div className="relative">
           {icons.header.cart}
           <div className="absolute top-1/3 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full">

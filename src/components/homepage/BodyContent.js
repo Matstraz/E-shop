@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export default function BodyContent({ shoppingCart, setShoppingCart }) {
+export default function BodyContent({
+  shoppingCart,
+  setShoppingCart,
+  wished,
+  setWished,
+}) {
   const [mainPhoto, setMainPhoto] = useState([]);
   const [carouselPhoto, setCarouselPhoto] = useState([]);
   const [size39, setSize39] = useState(false);
@@ -27,31 +32,50 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
 
   //CHANGE MAIN PRODUCT IMAGE THROUGH CAROUSEL PICS
   function handleMainProductImage(e) {
-    setMainPhoto({ url: e.target.src });
+    setMainPhoto({
+      url: e.target.src,
+      id: e.target.alt,
+      title: e.target.title,
+      price: "109,99 €",
+    });
+    setWished(false);
   }
 
   //SIZE SELECTOR [You could useRef (const ref = useRef() // ref.current.classList.add('class')), but having a state is useful to set a condition in order to save the user's data.]
   function handleSize39() {
     !size39 ? setSize39(true) : setSize39(false);
+    setWished(false);
   }
   function handleSize40() {
     !size40 ? setSize40(true) : setSize40(false);
+    setWished(false);
   }
   function handleSize405() {
     !size405 ? setSize405(true) : setSize405(false);
+    setWished(false);
   }
   function handleSize41() {
     !size41 ? setSize41(true) : setSize41(false);
+    setWished(false);
   }
   function handleSize42() {
     !size42 ? setSize42(true) : setSize42(false);
+    setWished(false);
   }
   function handleSize425() {
     !size425 ? setSize425(true) : setSize425(false);
+    setWished(false);
   }
 
+  //ADD TO CART
   function handleCart() {
     setShoppingCart(shoppingCart + 1);
+    //DEVE AGGIUNGERE AL LOCAL STORAGE o FARE UNA CHIAMATA POST
+  }
+
+  //ADD TO WISHLIST
+  function handleWish() {
+    !wished ? setWished(true) : setWished(false);
     //DEVE AGGIUNGERE AL LOCAL STORAGE o FARE UNA CHIAMATA POST
   }
 
@@ -90,7 +114,9 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
           <div className="font-bold ">
             <p className="pt-1 text-xl">Title: {mainPhoto.title}</p>
             <p className="text-xs pt-2">ID: {mainPhoto.id}</p>
-            <p className="pt-4">624,99 €</p>
+            <p className="pt-4">
+              {mainPhoto.price ? mainPhoto.price : "624,99 €"}
+            </p>
           </div>
           <div className="grid grid-cols-3 gap-1 mt-24 ">
             <p className="col-span-3 font-bold">Seleziona la taglia/misura</p>{" "}
@@ -184,9 +210,8 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
             </button>
             <button
               className="p-3 border-2 rounded-full mt-3"
-              onClick={handleCart}
+              onClick={handleWish}
             >
-              {" "}
               Add To Wishlist &nbsp; {icons.bodyContent.heart}
             </button>
           </div>
@@ -194,12 +219,14 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
       </div>
       <div className="p-10 w-11/12 m-auto">
         <p className="font-bold">Related Procducts</p>
+        {/* CAROUSEL */}
         <Carousel responsive={responsive} centerMode={true} className="mt-4">
           {carouselPhoto.map((el, index) => (
             <div key={el.id + index}>
               <img
                 src={el.url}
                 alt={el.id}
+                title={el.title}
                 className="pr-5 cursor-pointer"
                 onClick={handleMainProductImage}
               ></img>
