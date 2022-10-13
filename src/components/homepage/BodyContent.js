@@ -11,7 +11,7 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
       .then((response) => response.json())
       .then((json) => json.filter((el) => el.id < 7))
       .then((data) => {
-        setMainPhoto([data[0].url]); //MAIN PHOTO URL
+        setMainPhoto(data[0]); //MAIN PHOTO URL
         setCarouselPhoto([
           ...data.filter((el) => el.id > 1).map((el) => el), //CAROUSEL PHOTOS URLs
         ]);
@@ -25,7 +25,7 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
 
   function handleCart() {
     setShoppingCart(shoppingCart + 1);
-    console.log(carouselPhoto);
+    console.log(mainPhoto);
   }
 
   //REQUIRED CAROUSEL VARIABLE
@@ -52,14 +52,31 @@ export default function BodyContent({ shoppingCart, setShoppingCart }) {
     <main>
       <div className="w-10/12 m-auto flex">
         <article className="w-2/3 grid grid-cols-2 gap-3">
-          <img src={mainPhoto} alt="photo1"></img>
-          <img src={mainPhoto} alt="photo1"></img>
-          <img src={mainPhoto} alt="photo1"></img>
-          <img src={mainPhoto} alt="photo1"></img>
-          <img src={mainPhoto} alt="photo1"></img>
-          <img src={mainPhoto} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainPhoto.url} alt="photo1"></img>
         </article>
-        <aside className="w-1/3">
+        <aside className="w-1/3 px-9">
+          <div className="font-bold ">
+            <p className="pt-1 text-xl">Title: {mainPhoto.title}</p>
+            <p className="text-xs pt-2">ID: {mainPhoto.id}</p>
+            <p className="pt-4">624,99 €</p>
+          </div>
+          <div className="grid grid-cols-3 gap-1 mt-24 ">
+            <p className="col-span-3 font-bold">Seleziona la taglia/misura</p>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+            <button className="border rounded-md py-2">asd</button>
+          </div>
           <button onClick={handleCart}> add</button>
         </aside>
       </div>
