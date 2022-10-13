@@ -1,6 +1,6 @@
 import { useState } from "react";
+import BodyContent from "./BodyContent";
 import Header from "./Header";
-import Hero from "./Hero";
 
 export default function Homepage() {
   const [shoppingCart, setShoppingCart] = useState(0);
@@ -8,7 +8,10 @@ export default function Homepage() {
   return (
     <div>
       <Header shoppingCart={shoppingCart} />
-      <Hero shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />
+      <BodyContent
+        shoppingCart={shoppingCart}
+        setShoppingCart={setShoppingCart}
+      />
     </div>
   );
 }
