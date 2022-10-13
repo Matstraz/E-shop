@@ -9,30 +9,33 @@ export default function BodyContent({
   wished,
   setWished,
 }) {
-  const [mainPhoto, setMainPhoto] = useState([]);
-  const [carouselPhoto, setCarouselPhoto] = useState([]);
+  const [mainProductData, setMainProductData] = useState([]);
+  const [carouselProductsData, setCarouselProductsData] = useState([]);
   const [size39, setSize39] = useState(false);
   const [size40, setSize40] = useState(false);
   const [size405, setSize405] = useState(false);
   const [size41, setSize41] = useState(false);
   const [size42, setSize42] = useState(false);
   const [size425, setSize425] = useState(false);
+  const [wishList, setWishlist] = useState(mainProductData);
+  const [cartList, setCardlist] = useState(mainProductData);
 
+  //-- INITIAL VALUE REQUEST
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/photos`)
       .then((response) => response.json())
       .then((json) => json.filter((el) => el.id < 7))
       .then((data) => {
-        setMainPhoto(data[0]); //MAIN PHOTO URL
-        setCarouselPhoto([
-          ...data.filter((el) => el.id > 1).map((el) => el), //CAROUSEL PHOTOS
+        setMainProductData(data[0]); //INITIAL MAIN PRODUCT DATA
+        setCarouselProductsData([
+          ...data.filter((el) => el.id > 1).map((el) => el), //CAROUSEL PRODUCT DATA
         ]);
       });
   }, []);
 
-  //CHANGE MAIN PRODUCT IMAGE THROUGH CAROUSEL PICS
+  //-- CHANGE MAIN PRODUCT IMAGE/DATA THROUGH 'carouselProductsData' USING EVENT TARGET INSTEAD OF MAPPING 'carouselProductsData' ITSELF
   function handleMainProductImage(e) {
-    setMainPhoto({
+    setMainProductData({
       url: e.target.src,
       id: e.target.alt,
       title: e.target.title,
@@ -41,7 +44,7 @@ export default function BodyContent({
     setWished(false);
   }
 
-  //SIZE SELECTOR [You could useRef (const ref = useRef() // ref.current.classList.add('class')), but having a state is useful to set a condition in order to save the user's data.]
+  //-- SIZE SELECTOR [Note: you could useRef (const ref = useRef() // ref.current.classList.add('class')), but having a state is useful in order to set a condition to save the user's data.]
   function handleSize39() {
     !size39 ? setSize39(true) : setSize39(false);
     setWished(false);
@@ -67,19 +70,57 @@ export default function BodyContent({
     setWished(false);
   }
 
-  //ADD TO CART
+  //-- ADD TO CART (DATA SAVED THANKS TO A FAKE API & A POST REQUEST)
+
+  //ADD SIZE TO 'mainProductData' (THIS INFO IS NOT PROVIDED BY DEFAULT)
+  useEffect(() => {
+    size39 && setMainProductData({ ...mainProductData, size: 39 });
+    size40 && setMainProductData({ ...mainProductData, size: 40 });
+    size405 && setMainProductData({ ...mainProductData, size: 40.5 });
+    size41 && setMainProductData({ ...mainProductData, size: 41 });
+    size42 && setMainProductData({ ...mainProductData, size: 42 });
+    size425 && setMainProductData({ ...mainProductData, size: 42.5 });
+    // eslint-disable-next-line
+  }, [size39, size40, size405, size41, size42, size425]);
+
   function handleCart() {
-    setShoppingCart(shoppingCart + 1);
-    //DEVE AGGIUNGERE AL LOCAL STORAGE o FARE UNA CHIAMATA POST
+    setShoppingCart(shoppingCart + 1); //COUNTER INCREMENT
+    setCardlist([...cartList, mainProductData]); //ADD EACH ELEMENT TO THE "cartList" ARRAY
   }
 
-  //ADD TO WISHLIST
+  //DECLARE AN ARRAY OBJ WITH RELEVANT INFO FROM 'cartList'
+  useEffect(() => {
+    let neededInfoObj = cartList.map((el) => ({
+      title: el.title,
+      id: el.id,
+      size: el.size,
+    }));
+
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify({ neededInfoObj }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }, [cartList]);
+
+  //-- ADD TO WISHLIST (DATA SAVED IN LOCAL STORAGE)
   function handleWish() {
     !wished ? setWished(true) : setWished(false);
-    //DEVE AGGIUNGERE AL LOCAL STORAGE o FARE UNA CHIAMATA POST
+    if (wishList.includes(mainProductData)) {
+      setWishlist(wishList);
+    } else {
+      setWishlist([...wishList, mainProductData]);
+    }
   }
+  useEffect(() => {
+    localStorage.setItem("wishList", JSON.stringify(wishList));
+  }, [wishList]);
 
-  //REQUIRED CAROUSEL VARIABLE
+  //-- REQUIRED CAROUSEL VARIABLE
   const responsive = {
     LargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -103,19 +144,19 @@ export default function BodyContent({
     <main>
       <div className="w-10/12 m-auto flex">
         <article className="w-2/3 grid grid-cols-2 gap-3">
-          <img src={mainPhoto.url} alt="photo1"></img>
-          <img src={mainPhoto.url} alt="photo1"></img>
-          <img src={mainPhoto.url} alt="photo1"></img>
-          <img src={mainPhoto.url} alt="photo1"></img>
-          <img src={mainPhoto.url} alt="photo1"></img>
-          <img src={mainPhoto.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo1"></img>
         </article>
         <aside className="w-1/3 px-9">
           <div className="font-bold ">
-            <p className="pt-1 text-xl">Title: {mainPhoto.title}</p>
-            <p className="text-xs pt-2">ID: {mainPhoto.id}</p>
+            <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
+            <p className="text-xs pt-2">ID: {mainProductData.id}</p>
             <p className="pt-4">
-              {mainPhoto.price ? mainPhoto.price : "624,99 €"}
+              {mainProductData.price ? mainProductData.price : "624,99 €"}
             </p>
           </div>
           <div className="grid grid-cols-3 gap-1 mt-24 ">
@@ -221,7 +262,7 @@ export default function BodyContent({
         <p className="font-bold">Related Procducts</p>
         {/* CAROUSEL */}
         <Carousel responsive={responsive} centerMode={true} className="mt-4">
-          {carouselPhoto.map((el, index) => (
+          {carouselProductsData.map((el, index) => (
             <div key={el.id + index}>
               <img
                 src={el.url}
