@@ -27,7 +27,7 @@ export default function BodyContent({
       .then((response) => response.json())
       .then((json) => json.filter((el) => el.id < 7))
       .then((data) => {
-        setMainProductData(data[0]); //INITIAL MAIN PRODUCT DATA
+        setMainProductData({ ...data[0], price: "624,99 €" }); //INITIAL MAIN PRODUCT DATA
         setCarouselProductsData([
           ...data.filter((el) => el.id > 1).map((el) => el), //CAROUSEL PRODUCT DATA
         ]);
@@ -42,32 +42,92 @@ export default function BodyContent({
       title: e.target.title,
       price: "109,99 €",
     });
+    setSize39(false);
+    setSize40(false);
+    setSize405(false);
+    setSize41(false);
+    setSize42(false);
+    setSize425(false);
     setWished(false);
   }
 
-  //-- SIZE SELECTOR [Note: you could useRef (const ref = useRef() // ref.current.classList.add('class')), but having a state is useful in order to set a condition to save the user's data.]
+  //-- SIZE SELECTOR [Note: you could useRef (creating a ref const for each size, const ref = useRef() // ref.current.classList.add('class')), but having a state is useful in order to set a condition to save the user's data.]
   function handleSize39() {
-    !size39 ? setSize39(true) : setSize39(false);
+    if (!size39) {
+      setSize39(true);
+      setSize40(false);
+      setSize405(false);
+      setSize41(false);
+      setSize42(false);
+      setSize425(false);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
   function handleSize40() {
-    !size40 ? setSize40(true) : setSize40(false);
+    if (!size40) {
+      setSize39(false);
+      setSize40(true);
+      setSize405(false);
+      setSize41(false);
+      setSize42(false);
+      setSize425(false);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
   function handleSize405() {
-    !size405 ? setSize405(true) : setSize405(false);
+    if (!size405) {
+      setSize39(false);
+      setSize40(false);
+      setSize405(true);
+      setSize41(false);
+      setSize42(false);
+      setSize425(false);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
   function handleSize41() {
-    !size41 ? setSize41(true) : setSize41(false);
+    if (!size41) {
+      setSize39(false);
+      setSize40(false);
+      setSize405(false);
+      setSize41(true);
+      setSize42(false);
+      setSize425(false);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
   function handleSize42() {
-    !size42 ? setSize42(true) : setSize42(false);
+    if (!size42) {
+      setSize39(false);
+      setSize40(false);
+      setSize405(false);
+      setSize41(false);
+      setSize42(true);
+      setSize425(false);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
   function handleSize425() {
-    !size425 ? setSize425(true) : setSize425(false);
+    if (!size425) {
+      setSize39(false);
+      setSize40(false);
+      setSize405(false);
+      setSize41(false);
+      setSize42(false);
+      setSize425(true);
+    } else {
+      setSize40(false);
+    }
     setWished(false);
   }
 
@@ -108,6 +168,7 @@ export default function BodyContent({
       title: el.title,
       id: el.id,
       size: el.size,
+      price: el.price,
     }));
 
     fetch("https://jsonplaceholder.typicode.com/posts", {
