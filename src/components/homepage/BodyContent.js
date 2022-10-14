@@ -226,8 +226,8 @@ export default function BodyContent({
 
   return (
     <main>
-      <div className="w-11/12 lg:w-10/12 m-auto flex flex-col lg:flex-row">
-        <article className="hidden md:grid lg:w-2/3 lg:grid-cols-2 grid-cols-3 h-fit gap-2">
+      <div className="w-11/12 xl:w-10/12 m-auto flex flex-col xl:flex-row">
+        <article className="hidden md:grid xl:w-2/3 xl:grid-cols-2 grid-cols-3 h-fit gap-2">
           <img src={mainProductData.url} alt="photo1"></img>
           <img src={mainProductData.url} alt="photo2"></img>
           <img src={mainProductData.url} alt="photo3"></img>
@@ -254,7 +254,7 @@ export default function BodyContent({
             </Carousel>
           </div>
         </article>
-        <aside className="lg:w-1/3 px-3 lg:px-14">
+        <aside className="xl:w-1/3 px-3 xl:px-14">
           <div className="font-bold hidden md:block">
             <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
             <p className="text-xs pt-2">ID: {mainProductData.id}</p>
@@ -410,7 +410,7 @@ export default function BodyContent({
                 </Accordion.Title>
                 <Accordion.Content>
                   <div className="flex justify-between">
-                    <div className="font-bold">UserNumber1(130)</div>
+                    <div className="font-bold">UserNumber1(93)</div>
                     <Rating>
                       <Rating.Star />
                       <Rating.Star />
@@ -420,7 +420,7 @@ export default function BodyContent({
                     </Rating>
                   </div>
                   <div className="flex justify-between">
-                    <div className="font-bold">UserNumber2(185)</div>
+                    <div className="font-bold">UserNumber2(62)</div>
                     <Rating>
                       <Rating.Star />
                       <Rating.Star />
@@ -430,7 +430,7 @@ export default function BodyContent({
                     </Rating>
                   </div>
                   <div className="flex justify-between">
-                    <div className="font-bold">UserNumber3(12)</div>
+                    <div className="font-bold">UserNumber3(7)</div>
                     <Rating>
                       <Rating.Star />
                       <Rating.Star />
