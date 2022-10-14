@@ -2,6 +2,7 @@ import icons from "../util/Icons";
 import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Accordion, Rating } from "flowbite-react";
 
 export default function BodyContent({
   shoppingCart,
@@ -70,7 +71,7 @@ export default function BodyContent({
     setWished(false);
   }
 
-  //-- ADD TO CART (DATA SAVED THANKS TO A FAKE API & A POST REQUEST)
+  //-- ADD TO CART (DATA LOGGED INTO CONSOLE THANKS TO A FAKE API & A POST REQUEST)
 
   //ADD SIZE TO 'mainProductData' (THIS INFO IS NOT PROVIDED BY DEFAULT)
   useEffect(() => {
@@ -84,8 +85,21 @@ export default function BodyContent({
   }, [size39, size40, size405, size41, size42, size425]);
 
   function handleCart() {
-    setShoppingCart(shoppingCart + 1); //COUNTER INCREMENT
-    setCardlist([...cartList, mainProductData]); //ADD EACH ELEMENT TO THE "cartList" ARRAY
+    //SIZE SELECTION CONTROL
+    if (
+      !size39 &&
+      !size40 &&
+      !size39 &&
+      !size405 &&
+      !size41 &&
+      !size42 &&
+      !size425
+    ) {
+      alert("A size must be selected!");
+    } else {
+      setShoppingCart(shoppingCart + 1); //COUNTER INCREMENT
+      setCardlist([...cartList, mainProductData]); //ADD EACH ELEMENT TO THE "cartList" ARRAY
+    }
   }
 
   //DECLARE AN ARRAY OBJ WITH RELEVANT INFO FROM 'cartList'
@@ -135,31 +149,57 @@ export default function BodyContent({
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 768, min: 0 },
+      breakpoint: { max: 767, min: 0 },
+      items: 1,
+    },
+  };
+
+  const responsive2 = {
+    mobile: {
+      breakpoint: { max: 767, min: 0 },
       items: 1,
     },
   };
 
   return (
     <main>
-      <div className="w-10/12 m-auto flex">
-        <article className="w-2/3 grid grid-cols-2 gap-3">
+      <div className="w-11/12 lg:w-10/12 m-auto flex flex-col lg:flex-row">
+        <article className="hidden md:grid lg:w-2/3 lg:grid-cols-2 grid-cols-3 h-fit gap-2">
           <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo1"></img>
+          <img src={mainProductData.url} alt="photo2"></img>
+          <img src={mainProductData.url} alt="photo3"></img>
+          <img src={mainProductData.url} alt="photo4"></img>
+          <img src={mainProductData.url} alt="photo5"></img>
+          <img src={mainProductData.url} alt="photo6"></img>
         </article>
-        <aside className="w-1/3 px-9">
-          <div className="font-bold ">
+        <article className="md:hidden">
+          <div className="font-bold md:hidden">
             <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
             <p className="text-xs pt-2">ID: {mainProductData.id}</p>
             <p className="pt-4">
               {mainProductData.price ? mainProductData.price : "624,99 €"}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-1 mt-24 ">
+          <div className="mt-2">
+            <Carousel responsive={responsive2}>
+              <img src={mainProductData.url} alt="photo1"></img>
+              <img src={mainProductData.url} alt="photo2"></img>
+              <img src={mainProductData.url} alt="photo3"></img>
+              <img src={mainProductData.url} alt="photo4"></img>
+              <img src={mainProductData.url} alt="photo5"></img>
+              <img src={mainProductData.url} alt="photo6"></img>
+            </Carousel>
+          </div>
+        </article>
+        <aside className="lg:w-1/3 px-3 lg:px-14">
+          <div className="font-bold hidden md:block">
+            <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
+            <p className="text-xs pt-2">ID: {mainProductData.id}</p>
+            <p className="pt-4">
+              {mainProductData.price ? mainProductData.price : "624,99 €"}
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-1 mt-12 md:mt-24 ">
             <p className="col-span-3 font-bold">Seleziona la taglia/misura</p>{" "}
             {/* SIZE SELECTORS */}
             <button
@@ -255,6 +295,100 @@ export default function BodyContent({
             >
               Add To Wishlist &nbsp; {icons.bodyContent.heart}
             </button>
+          </div>
+          <div className="mt-10">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Architecto dolor sed asperiores nam, perferendis consequatur,
+              aspernatur eum, neque hic ab dignissimos laboriosam corporis
+              commodi iste nulla non deserunt ex alias cupiditate labore.
+              Repellat, quos mollitia recusandae dolores illo, totam tempora
+              natus doloribus voluptatibus expedita temporibus.
+            </p>
+            <ul className="mt-10 list-disc list-inside text-justify">
+              <li>Color: Black</li>
+              <li>Product ID: {mainProductData.id}</li>
+            </ul>
+          </div>
+          {/* ACCORDION */}
+          <div className="mt-12">
+            <Accordion alwaysOpen={true}>
+              <Accordion.Panel>
+                <Accordion.Title>
+                  <p className="font-bold text-lg text-black">Shipping Rules</p>
+                </Accordion.Title>
+                <Accordion.Content>
+                  <p className="my-5 px-2">Lorem ipsum dolor sic amet</p>
+                  <ul className="list-disc px-2">
+                    <li className="text-sm text-justify">
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Aperiam veniam adipisci tenetur consequatur porro magni.
+                      <a href="/" className="font-bold">
+                        Generic Link
+                      </a>
+                    </li>
+                  </ul>
+                </Accordion.Content>
+              </Accordion.Panel>
+              <Accordion.Panel>
+                <Accordion.Title>
+                  <div className="flex justify-around items-center">
+                    <p className="font-bold text-lg text-black pr-3">
+                      Ratings(4)
+                    </p>
+                    <Rating>
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star filled={false} />
+                    </Rating>
+                  </div>
+                </Accordion.Title>
+                <Accordion.Content>
+                  <div className="flex justify-between">
+                    <div className="font-bold">UserNumber1(130)</div>
+                    <Rating>
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                    </Rating>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="font-bold">UserNumber2(185)</div>
+                    <Rating>
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star filled={false} />
+                    </Rating>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="font-bold">UserNumber3(12)</div>
+                    <Rating>
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star filled={false} />
+                      <Rating.Star filled={false} />
+                    </Rating>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="font-bold">UserNumber4(80)</div>
+                    <Rating>
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star />
+                      <Rating.Star filled={false} />
+                    </Rating>
+                  </div>
+                </Accordion.Content>
+              </Accordion.Panel>
+            </Accordion>
           </div>
         </aside>
       </div>
