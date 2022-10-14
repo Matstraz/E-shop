@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BodyContent from "./BodyContent";
-import Header from "./Header";
+import Header from "./header/Header";
 
 export default function Homepage() {
   const [shoppingCart, setShoppingCart] = useState(0);
