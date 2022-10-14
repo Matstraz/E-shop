@@ -126,8 +126,10 @@ export default function BodyContent({
     !wished ? setWished(true) : setWished(false);
     if (wishList.includes(mainProductData)) {
       setWishlist(wishList);
+      alert("This element is in your wishlist yet");
     } else {
       setWishlist([...wishList, mainProductData]);
+      alert("Item added to your wishlist successfully");
     }
   }
   useEffect(() => {
