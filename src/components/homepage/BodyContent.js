@@ -29,7 +29,7 @@ export default function BodyContent({
       .then((data) => {
         setMainProductData({ ...data[0], price: "624,99 €" }); //INITIAL MAIN PRODUCT DATA
         setCarouselProductsData([
-          ...data.filter((el) => el.id > 1).map((el) => el), //CAROUSEL PRODUCT DATA
+          ...data.filter((el) => el.id > 1), //CAROUSEL PRODUCT DATA
         ]);
       });
   }, []);
