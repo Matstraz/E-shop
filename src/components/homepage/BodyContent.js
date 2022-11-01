@@ -19,7 +19,7 @@ export default function BodyContent({
   const [size42, setSize42] = useState(false);
   const [size425, setSize425] = useState(false);
   const [wishList, setWishlist] = useState(mainProductData);
-  const [cartList, setCardlist] = useState(mainProductData);
+  const [cartList, setCartlist] = useState(mainProductData);
 
   //-- INITIAL VALUE REQUEST
   useEffect(() => {
@@ -60,8 +60,6 @@ export default function BodyContent({
       setSize41(false);
       setSize42(false);
       setSize425(false);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -73,8 +71,6 @@ export default function BodyContent({
       setSize41(false);
       setSize42(false);
       setSize425(false);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -86,8 +82,6 @@ export default function BodyContent({
       setSize41(false);
       setSize42(false);
       setSize425(false);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -99,8 +93,6 @@ export default function BodyContent({
       setSize41(true);
       setSize42(false);
       setSize425(false);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -112,8 +104,6 @@ export default function BodyContent({
       setSize41(false);
       setSize42(true);
       setSize425(false);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -125,8 +115,6 @@ export default function BodyContent({
       setSize41(false);
       setSize42(false);
       setSize425(true);
-    } else {
-      setSize40(false);
     }
     setWished(false);
   }
@@ -158,7 +146,7 @@ export default function BodyContent({
       alert("A size must be selected!");
     } else {
       setShoppingCart(shoppingCart + 1); //COUNTER INCREMENT
-      setCardlist([...cartList, mainProductData]); //ADD EACH ELEMENT TO THE "cartList" ARRAY
+      setCartlist([...cartList, mainProductData]); //ADD EACH ELEMENT TO THE "cartList" ARRAY
     }
   }
 
