@@ -1,8 +1,8 @@
-import icons from "../util/Icons";
+import icons from "../../util/Icons";
 import { useEffect, useState } from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import { Accordion, Rating } from "flowbite-react";
+import MainProducts from "./MainProducts";
+import MainCarousel from "./MainCarousel";
 
 export default function BodyContent({
   shoppingCart,
@@ -33,23 +33,6 @@ export default function BodyContent({
         ]);
       });
   }, []);
-
-  //-- CHANGE MAIN PRODUCT IMAGE/DATA THROUGH 'carouselProductsData' USING EVENT TARGET INSTEAD OF MAPPING 'carouselProductsData' ITSELF
-  function handleMainProductImage(e) {
-    setMainProductData({
-      url: e.target.src,
-      id: e.target.alt,
-      title: e.target.title,
-      price: "109,99 €",
-    });
-    setSize39(false);
-    setSize40(false);
-    setSize405(false);
-    setSize41(false);
-    setSize42(false);
-    setSize425(false);
-    setWished(false);
-  }
 
   //-- SIZE SELECTOR [Note: you could useRef (creating a ref const for each size, const ref = useRef() // ref.current.classList.add('class')), but having a state is useful in order to set a condition to save the user's data.]
   function handleSize39() {
@@ -185,63 +168,10 @@ export default function BodyContent({
     localStorage.setItem("wishList", JSON.stringify(wishList));
   }, [wishList]);
 
-  //-- REQUIRED CAROUSEL VARIABLE
-  const responsive = {
-    LargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 769 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 767, min: 0 },
-      items: 1,
-    },
-  };
-
-  const responsive2 = {
-    mobile: {
-      breakpoint: { max: 767, min: 0 },
-      items: 1,
-    },
-  };
-
   return (
     <main>
       <div className="w-11/12 xl:w-10/12 m-auto flex flex-col xl:flex-row">
-        <article className="hidden md:grid xl:w-2/3 xl:grid-cols-2 grid-cols-3 h-fit gap-2">
-          <img src={mainProductData.url} alt="photo1"></img>
-          <img src={mainProductData.url} alt="photo2"></img>
-          <img src={mainProductData.url} alt="photo3"></img>
-          <img src={mainProductData.url} alt="photo4"></img>
-          <img src={mainProductData.url} alt="photo5"></img>
-          <img src={mainProductData.url} alt="photo6"></img>
-        </article>
-        <article className="md:hidden">
-          <div className="font-bold md:hidden">
-            <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
-            <p className="text-xs pt-2">ID: {mainProductData.id}</p>
-            <p className="pt-4">
-              {mainProductData.price ? mainProductData.price : "624,99 €"}
-            </p>
-          </div>
-          <div className="mt-2">
-            <Carousel responsive={responsive2}>
-              <img src={mainProductData.url} alt="photo1"></img>
-              <img src={mainProductData.url} alt="photo2"></img>
-              <img src={mainProductData.url} alt="photo3"></img>
-              <img src={mainProductData.url} alt="photo4"></img>
-              <img src={mainProductData.url} alt="photo5"></img>
-              <img src={mainProductData.url} alt="photo6"></img>
-            </Carousel>
-          </div>
-        </article>
+        <MainProducts mainProductData={mainProductData} />
         <aside className="xl:w-1/3 px-3 xl:px-14">
           <div className="font-bold hidden md:block">
             <p className="pt-1 text-xl">Title: {mainProductData.title}</p>
@@ -443,28 +373,17 @@ export default function BodyContent({
           </div>
         </aside>
       </div>
-      <div className="p-10 w-11/12 m-auto">
-        <p className="font-bold">Related Procducts</p>
-        {/* CAROUSEL */}
-        <Carousel responsive={responsive} centerMode={true} className="mt-4">
-          {carouselProductsData.map((el, index) => (
-            <div key={el.id + index}>
-              <img
-                src={el.url}
-                alt={el.id}
-                title={el.title}
-                className="pr-5 cursor-pointer"
-                onClick={handleMainProductImage}
-              ></img>
-              <div className="pt-2 pr-5 text-xs">
-                <p className="font-bold pt-1">Title: {el.title}</p>
-                <p className="text-slate-500 pt-2">ID: {el.id}</p>
-                <p className="font-bold pt-2">109,99 €</p>
-              </div>
-            </div>
-          ))}
-        </Carousel>
-      </div>
+      <MainCarousel
+        carouselProductsData={carouselProductsData}
+        setMainProductData={setMainProductData}
+        setSize39={setSize39}
+        setSize40={setSize40}
+        setSize405={setSize405}
+        setSize41={setSize41}
+        setSize42={setSize42}
+        setSize425={setSize425}
+        setWished={setWished}
+      />
     </main>
   );
 }
