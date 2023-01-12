@@ -25,12 +25,12 @@ export default function Header({ shoppingCart, wished }) {
         <div className="relative">
           {icons.header.cart}
           <div className="absolute top-1/3 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full">
-            {/* INCREMENTAL PRODUC NUMBER */}
+            {/*PRODUCT INCREMENTER */}
             {shoppingCart}
           </div>
         </div>
-        {/* BURGER MENU */}
         <div className="md:hidden">{icons.header.search}</div>
+        {/* BURGER MENU */}
         <div className="md:hidden z-10">
           <button
             aria-label="Open Menu"

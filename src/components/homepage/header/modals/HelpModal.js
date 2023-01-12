@@ -14,12 +14,7 @@ export default function HelpModal() {
 
   const handleInput = (event) => {
     const { name, type, value, checked } = event.target;
-    setData((data) => {
-      return {
-        ...data,
-        [name]: type !== "checkbox" ? value : checked,
-      };
-    });
+    setData({ ...data, [name]: type !== "checkbox" ? value : checked });
   };
 
   function handleHelp(e) {
@@ -27,6 +22,14 @@ export default function HelpModal() {
     console.log(data);
     alert("Message sent successfully");
     setShowModal(false);
+    setData({
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+      message: "",
+      checkMe: false,
+    });
   }
   return (
     <>

@@ -33,10 +33,10 @@ export default function MainCarousel({
   };
 
   //-- CHANGE MAIN PRODUCT IMAGE/DATA THROUGH 'carouselProductsData' USING EVENT TARGET INSTEAD OF MAPPING 'carouselProductsData' ITSELF
-  function handleMainProductImage(e) {
+  function handleMainProductData(e) {
     setMainProductData({
       url: e.target.src,
-      id: e.target.alt,
+      id: Number(e.target.alt),
       title: e.target.title,
       price: "109,99 €",
     });
@@ -51,7 +51,6 @@ export default function MainCarousel({
   return (
     <div className="p-10 w-11/12 m-auto">
       <p className="font-bold">Related Procducts</p>
-      {/* CAROUSEL */}
       <Carousel responsive={responsive} centerMode={true} className="mt-4">
         {carouselProductsData.map((el, index) => (
           <div key={el.id + index}>
@@ -60,7 +59,7 @@ export default function MainCarousel({
               alt={el.id}
               title={el.title}
               className="pr-5 cursor-pointer"
-              onClick={handleMainProductImage}
+              onClick={handleMainProductData}
             ></img>
             <div className="pt-2 pr-5 text-xs">
               <p className="font-bold pt-1">Title: {el.title}</p>

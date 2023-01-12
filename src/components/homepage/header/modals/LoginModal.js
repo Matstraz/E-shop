@@ -10,12 +10,7 @@ export default function LoginModal() {
 
   function handleInput(event) {
     const { name, value } = event.target;
-    setData((data) => {
-      return {
-        ...data,
-        [name]: value,
-      };
-    });
+    setData({ ...data, [name]: value });
   }
 
   function handleLogin(e) {
@@ -23,6 +18,10 @@ export default function LoginModal() {
     console.log(data);
     alert("User logged in");
     setShowModal(false);
+    setData({
+      email: "",
+      password: "",
+    });
   }
   return (
     <>
